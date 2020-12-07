@@ -29,20 +29,18 @@ pipeline {
                 }
             }
         }
-        stage('Deliver') { //1
+	stage('Deliver') {
             agent {
                 docker {
-                    image 'cdrx/pyinstaller-linux:python2' //2
+                    image 'cdrx/pyinstaller-linux:python2'
                 }
             }
             steps {
-                sh 'pyinstaller --onefile sources/add2vals.py' //3
+                sh '/root/.pyenv/shims/pyinstaller --onefile sources/add2vals.py'
             }
             post {
                 success {
-                    archiveArtifacts 'dist/add2vals' //4
+                    archiveArtifacts 'dist/add2vals'
                 }
             }
         }
-    }
-}
